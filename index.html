@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pintou Novidades | Moda & Estilo em Ipatinga</title>
+    <!-- Font Awesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Bar de Informações de Topo com Cupom -->
+    <div class="top-bar">
+        <span><i class="fa-solid fa-truck"></i> Entregas Express para Ipatinga e Região</span>
+        <span class="highlight-promo"><i class="fa-solid fa-ticket"></i> Use o cupom <strong>PRIMEIRA10</strong> para 10% OFF</span>
+        <span><i class="fa-solid fa-shield-halved"></i> Compra Segura via WhatsApp</span>
+    </div>
+
+    <!-- Navegação Principal -->
+    <header class="navbar">
+        <div class="nav-container">
+            <h1 class="logo">PINTOU <span>NOVIDADES</span></h1>
+            
+            <!-- Campo de Busca em Tempo Real -->
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Buscar peças..." onkeyup="filterProducts()">
+            </div>
+
+            <div class="nav-actions">
+                <button class="account-btn" onclick="openAccountModal()" title="Minha Conta">
+                    <i class="fa-solid fa-user"></i>
+                    <span class="desktop-only">Entrar</span>
+                </button>
+                <button class="cart-btn" onclick="toggleCart()" title="Sacola de Compras">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu de Categorias -->
+        <nav class="nav-menu">
+            <button class="nav-link active" onclick="filterCategory('todos', this)">TODOS</button>
+            <button class="nav-link" onclick="filterCategory('feminino', this)">FEMININO</button>
+            <button class="nav-link" onclick="filterCategory('masculino', this)">MASCULINO</button>
+            <button class="nav-link" onclick="filterCategory('calcados', this)">CALÇADOS</button>
+            <button class="nav-link" onclick="filterCategory('acessorios', this)">ACESSÓRIOS</button>
+        </nav>
+    </header>
+
+    <!-- Banner Principal Minimalista P&B -->
+    <section class="hero-banner">
+        <div class="hero-content">
+            <span class="hero-tag">COLLECTION 2026</span>
+            <h2>ESSENCIAL & MINIMALISTA</h2>
+            <p>Siga no Instagram <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">@pintounovidades</a></p>
+            <a href="#catalogo" class="btn-hero">EXPLORAR COLEÇÃO</a>
+        </div>
+    </section>
+
+    <!-- Seção Endereço Físico e Confiança -->
+    <section class="address-section" id="endereco">
+        <div class="address-container">
+            <div class="address-info">
+                <h3><i class="fa-solid fa-location-dot"></i> Loja Física em Ipatinga</h3>
+                <p>Avenida 28 de Abril, 328, Centro, Ipatinga - MG | Atendimento presencial e provadores</p>
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Avenida+28+de+abril,+328,+Ipatinga+-+MG" target="_blank" rel="noopener noreferrer" class="btn-maps">
+                <i class="fa-solid fa-map-location-dot"></i> Abrir no GPS
+            </a>
+        </div>
+    </section>
+
+    <!-- Catálogo de Produtos com Ordenação e Filtro -->
+    <main class="catalog-container" id="catalogo">
+        <div class="catalog-header">
+            <div>
+                <h3 class="section-title">Nossos Produtos</h3>
+                <span id="productCount" class="product-count">0 produtos encontrados</span>
+            </div>
+            
+            <div class="sort-wrapper">
+                <label for="sortSelect"><i class="fa-solid fa-arrow-up-wide-short"></i> Ordenar:</label>
+                <select id="sortSelect" onchange="sortProducts(this.value)">
+                    <option value="relevancia">Destaques</option>
+                    <option value="menor-preco">Menor Preço</option>
+                    <option value="maior-preco">Maior Preço</option>
+                    <option value="nome">Nome (A-Z)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="product-grid" id="productGrid">
+            <!-- Renderizado Dinamicamente via JS -->
+        </div>
+    </main>
+
+    <!-- Modal Tabela de Medidas -->
+    <div class="modal-overlay" id="sizeGuideModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeSizeGuide()">&times;</button>
+            <h3>Tabela de Medidas (cm)</h3>
+            <p class="modal-subtitle">Use uma fita métrica para conferir seu tamanho ideal.</p>
+            <table class="size-table">
+                <thead>
+                    <tr>
+                        <th>Tamanho</th>
+                        <th>Busto/Tórax</th>
+                        <th>Cintura</th>
+                        <th>Quadril</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>P</td><td>84-90 cm</td><td>66-72 cm</td><td>94-100 cm</td></tr>
+                    <tr><td>M</td><td>91-98 cm</td><td>73-79 cm</td><td>101-108 cm</td></tr>
+                    <tr><td>G</td><td>99-106 cm</td><td>80-88 cm</td><td>109-116 cm</td></tr>
+                    <tr><td>GG</td><td>107-114 cm</td><td>89-97 cm</td><td>117-124 cm</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Seção FAQ / Dúvidas -->
+    <section class="faq-section">
+        <div class="faq-container">
+            <h3 class="section-title">Perguntas Frequentes</h3>
+            
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    <span>Como funcionam as entregas em Ipatinga?</span>
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Enviamos via motoboy express para toda a região do Vale do Aço. A taxa é calculada e informada durante a finalização do atendimento pelo WhatsApp.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    <span>Posso retirar meu pedido na loja física?</span>
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Com certeza! Basta selecionar "Retirar na Loja" na sacola. Nós separamos as peças para você buscar na Av. 28 de Abril, 328.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    <span>Como funciona a troca ou devolução?</span>
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Caso a peça não sirva, você tem até 7 dias após o recebimento para solicitar a troca sem complicações diretamente pelo WhatsApp ou presencialmente na loja.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé Minimalista -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>PINTOU NOVIDADES</h4>
+                <p>Moda, calçados e acessórios selecionados com estética minimalista e alta qualidade em Ipatinga - MG.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Atendimento</h4>
+                <p><i class="fa-brands fa-whatsapp"></i> (31) 99999-9999</p>
+                <p><i class="fa-solid fa-envelope"></i> contato@pintounovidades.com.br</p>
+                <p><i class="fa-solid fa-clock"></i> Seg a Sex: 09h às 19h | Sáb: 09h às 13h</p>
+            </div>
+            <div class="footer-col">
+                <h4>Garantia & Trocas</h4>
+                <p><i class="fa-solid fa-rotate-left"></i> Troca grátis em até 7 dias após o recebimento.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Pintou Novidades. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Modal Minha Conta -->
+    <div class="modal-overlay" id="accountModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeAccountModal()">&times;</button>
+            <h3>Minha Conta</h3>
+            <p class="modal-subtitle">Acesse para ver o histórico dos seus pedidos.</p>
+            <div class="form-group">
+                <label>E-mail ou Celular</label>
+                <input type="text" placeholder="Digite seu e-mail ou número">
+            </div>
+            <div class="form-group">
+                <label>Senha</label>
+                <input type="password" placeholder="Digite sua senha">
+            </div>
+            <button class="btn-dark-block" onclick="alert('Login efetuado!')">Entrar</button>
+        </div>
+    </div>
+
+    <!-- Sacola Drawer / Carrinho Lateral com Barra de Frete -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <aside class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h3>Sua Sacola</h3>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+
+        <!-- Barra de Progresso de Frete Grátis (Meta R$ 250) -->
+        <div class="free-shipping-bar">
+            <span id="shippingMsg">Faltam R$ 250,00 para <strong>FRETE GRÁTIS</strong></span>
+            <div class="progress-bg">
+                <div class="progress-fill" id="shippingProgress" style="width: 0%;"></div>
+            </div>
+        </div>
+        
+        <div class="cart-body" id="cartBody">
+            <!-- Itens dinâmicos -->
+        </div>
+
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Subtotal:</span>
+                <span id="cartTotal">R$ 0,00</span>
+            </div>
+
+            <div class="checkout-form">
+                <div class="form-group">
+                    <label>Seu Nome Completo:</label>
+                    <input type="text" id="custName" placeholder="Ex: Maria Silva">
+                </div>
+
+                <div class="form-group">
+                    <label>Cupom de Desconto:</label>
+                    <div class="coupon-group">
+                        <input type="text" id="couponCode" placeholder="Ex: PRIMEIRA10" style="text-transform:uppercase;">
+                        <button type="button" class="btn-coupon" onclick="applyCoupon()">Aplicar</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Forma de Entrega:</label>
+                    <select id="deliveryType" onchange="toggleDeliveryType(this.value)">
+                        <option value="retirada">Retirar na Loja (Ipatinga - Centro)</option>
+                        <option value="entrega">Receber em Casa (Entrega Express)</option>
+                    </select>
+                </div>
+
+                <div class="delivery-address" id="addressFields">
+                    <div class="form-group">
+                        <input type="text" id="custStreet" placeholder="Rua / Avenida e Nº">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="custNumber" placeholder="Bairro e Ponto de Referência">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Pagamento:</label>
+                    <select id="custPayment">
+                        <option value="PIX">Pix (Aprovação Imediata)</option>
+                        <option value="Cartão de Crédito">Cartão de Crédito</option>
+                        <option value="Cartão de Débito">Cartão de Débito</option>
+                    </select>
+                </div>
+
+                <button class="btn-checkout" onclick="checkoutWhatsApp()">
+                    <i class="fa-brands fa-whatsapp"></i> Finalizar Pedido no WhatsApp
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Notification Toast -->
+    <div class="toast" id="toast">Item adicionado à sacola!</div>
+
+    <!-- Prova Social Flutuante (Sales Popup) -->
+    <div class="sales-pop" id="salesPop">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <div>
+            <p id="salesPopText"><strong>Juliana S.</strong> de Ipatinga comprou há 5 min.</p>
+        </div>
+    </div>
+
+    <!-- Botão Flutuante do WhatsApp -->
+    <a href="https://wa.me/5531999999999" class="whatsapp-float" target="_blank" rel="noopener noreferrer" title="Atendimento WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Lógica JS -->
+    <script src="script.js"></script>
+</body>
+</html>
